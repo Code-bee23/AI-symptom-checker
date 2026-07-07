@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Symptom Checker</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <h1>🩺 AI Symptom Checker</h1>
+
+        <p>Select your symptoms and let AI analyze them.</p>
+
+    </div>
+
+    <form id="predictForm" action="/predict" method="post">
+
+        <!-- Search -->
+
+        <input
+            type="text"
+            id="search"
+            placeholder="🔍 Search symptoms...">
+
+        <!-- Common Symptoms -->
+
+        <div class="common">
+
+            <h3>⭐ Common Symptoms</h3>
+
+            <div class="chips">
+
+                <button type="button" class="chip" data-symptom="headache">
+                    Headache
+                </button>
+
+                <button type="button" class="chip" data-symptom="high_fever">
+                    High Fever
+                </button>
+
+                <button type="button" class="chip" data-symptom="cough">
+                    Cough
+                </button>
+
+                <button type="button" class="chip" data-symptom="fatigue">
+                    Fatigue
+                </button>
+
+                <button type="button" class="chip" data-symptom="vomiting">
+                    Vomiting
+                </button>
+
+                <button type="button" class="chip" data-symptom="nausea">
+                    Nausea
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- Buttons -->
+
+        <div class="action-buttons">
+
+            <button type="button" id="selectAll" class="secondary">
+
+                ✓ Select All
+
+            </button>
+
+            <button type="button" id="clearAll" class="secondary">
+
+                ✕ Clear All
+
+            </button>
+
+        </div>
+
+        <!-- Symptom List -->
+
+        <div class="symptom-box" id="symptomList">
+
+            {% for symptom in symptoms %}
+
+            <label class="symptom-item">
+
+                <input
+                    type="checkbox"
+                    name="selected_symptoms"
+                    value="{{ symptom }}">
+
+                {{ symptom.replace("_", " ").title() }}
+
+            </label>
+
+            {% endfor %}
+
+        </div>
+
+        <button type="submit" class="predict-btn">
+
+            🔍 Predict Disease
+
+        </button>
+
+    </form>
+
+</div>
+
+<!-- Loading Screen -->
+
+<div id="loading-screen" class="loading-screen">
+
+    <div class="loader"></div>
+
+    <h2> Analyzing your symptoms...</h2>
+
+    <p>Please wait while we process your request.</p>
+
+</div>
+
+<script src="/static/script.js"></script>
+
+<script>
+
+const form = document.getElementById("predictForm");
+
+form.addEventListener("submit", function(e){
+
+    e.preventDefault();
+
+    const checked = document.querySelectorAll(
+        'input[name="selected_symptoms"]:checked'
+    );
+
+    if(checked.length === 0){
+
+        alert("Please select at least one symptom.");
+
+        return;
+
+    }
+
+    document.getElementById("loading-screen").style.display = "flex";
+
+    setTimeout(function(){
+
+        form.submit();
+
+    },1500);
+
+});
+
+</script>
+
+</body>
+
+</html>

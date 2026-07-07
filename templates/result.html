@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Disease Prediction</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🩺 Disease Prediction</h1>
+
+    <!-- Selected Symptoms -->
+
+    <div class="card">
+
+        <h2>✅ Selected Symptoms</h2>
+
+        <div class="selected-result">
+
+            {% if selected_symptoms %}
+
+                {% for symptom in selected_symptoms %}
+
+                    <span class="selected-chip">
+
+                        {{ symptom.replace("_", " ").title() }}
+
+                    </span>
+
+                {% endfor %}
+
+            {% else %}
+
+                <p>No symptoms selected.</p>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    <!-- Predicted Disease -->
+
+    <div class="card">
+
+        <h2>🦠 Predicted Disease</h2>
+
+        <p class="prediction">
+
+            {{ prediction }}
+
+        </p>
+
+    </div>
+
+    <!-- Risk -->
+
+    <div class="card">
+
+        <h2>⚠ Risk Level</h2>
+
+        <p class="risk">
+
+            {{ risk }}
+
+        </p>
+
+    </div>
+
+    <!-- Description -->
+
+    <div class="card">
+
+        <h2>📖 Description</h2>
+
+        <p>
+
+            {{ description }}
+
+        </p>
+
+    </div>
+
+    <!-- Precautions -->
+
+    <div class="card">
+
+        <h2>💊 Precautions</h2>
+
+        <ul>
+
+            {% for item in precautions %}
+
+                <li>{{ item }}</li>
+
+            {% endfor %}
+
+        </ul>
+
+    </div>
+
+    <!-- Other Predictions -->
+
+    {% if top_predictions %}
+
+    <div class="card">
+
+        <h2>🔍 Other Possible Diseases</h2>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Disease</th>
+
+                    <th>Probability</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for item in top_predictions %}
+
+                <tr>
+
+                    <td>{{ item.disease }}</td>
+
+                    <td>{{ item.probability }}%</td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% endif %}
+
+    <!-- Disclaimer -->
+
+    <div class="warning">
+
+        <h3>⚠ Medical Disclaimer</h3>
+
+        <p>
+
+            {{ disclaimer }}
+
+        </p>
+
+    </div>
+
+    <!-- Buttons -->
+
+    <div class="button-group">
+
+        <a href="/">
+
+            <button class="predict-btn">
+
+                ← Check Another Symptom
+
+            </button>
+
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
