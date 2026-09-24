@@ -37,10 +37,8 @@ An AI-powered web application that predicts possible diseases based on user-sele
 ```text
 AI-Symptom-Checker/
 │
-├── app/
 ├── data/
 ├── models/
-├── notebooks/
 ├── static/
 ├── templates/
 ├── requirements.txt
